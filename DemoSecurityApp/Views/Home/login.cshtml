@@ -1,0 +1,23 @@
+﻿@model IEnumerable<DemoSecurityApp.Models.User>
+
+@{
+    ViewBag.Title = "autologin";
+}
+
+@if (TempData["lgnFailedMessage"] != null)
+{ 
+    <h3 style="color: red;">@TempData["lgnFailedMessage"]</h3>
+}
+
+@{var sL = new SelectList(Model, "ID", "FullName"); }
+
+@using (Html.BeginForm())
+{
+    <h2>Select a User to Login</h2>
+    @Html.DropDownList("id", sL)
+    <br />
+    <input type="submit" name="name" value="Login" />    
+}
+
+
+

@@ -1,0 +1,20 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+@{ string viewDataText = ViewData["UnAuthMessage"] != null ? Convert.ToString(ViewData["UnAuthMessage"]) : null;
+   string message = viewDataText ?? "You are not authorized to access this content.";
+   string title = viewDataText ?? "Unauthorized Activity";
+}
+
+<head>
+    <title>@title</title>
+</head>
+<body>
+    <div>
+        <h2>@message</h2>
+    </div>
+</body>
+</html>

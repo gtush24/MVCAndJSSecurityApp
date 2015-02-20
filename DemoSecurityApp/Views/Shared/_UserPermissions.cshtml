@@ -1,0 +1,9 @@
+﻿@{
+    var ids = PermissionManager.getAccessibleFeatureControlID();
+}
+
+@if (ids.Any())
+{
+    var stri = string.Join(", ", ids);
+    <div class="message-info message-success">Data-Features Accessible: <b>@stri </b></div>
+}
