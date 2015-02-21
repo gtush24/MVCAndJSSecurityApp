@@ -1,12 +1,12 @@
 ﻿@model IEnumerable<DemoSecurityApp.Models.User>
 
 @{
-    ViewBag.Title = "autologin";
+    ViewBag.Title = "Login";
 }
 
-@if (TempData["lgnFailedMessage"] != null)
+@if (TempData["Message"] != null)
 { 
-    <h3 style="color: red;">@TempData["lgnFailedMessage"]</h3>
+    <h3 style="color: red;">@TempData["Message"]</h3>
 }
 
 @{var sL = new SelectList(Model, "ID", "FullName"); }

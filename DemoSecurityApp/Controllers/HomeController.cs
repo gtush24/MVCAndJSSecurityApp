@@ -36,19 +36,11 @@ namespace DemoSecurityApp.Controllers
             return Json(jper, JsonRequestBehavior.AllowGet);
         }
 
-        //public ActionResult Index()
-        //{
-        //    var mesg = TempData["lgnFailedMessage"];
-        //    ViewBag.Message = "Modify this template to jump-start your ASP.NET MVC application.";
-
-        //    return View();
-        //}
-
         public ActionResult login()
         {
-            PermissionManager asasd = PermissionManager.getPermissions();
+            PermissionManager userPermissions = PermissionManager.getPermissions();
 
-            if (asasd != null)
+            if (userPermissions != null)
                 return RedirectToAction("userlist");
 
             var allUsers = service.GetAllUsers();
@@ -66,15 +58,14 @@ namespace DemoSecurityApp.Controllers
         [PermissionFilter]
         public ActionResult UserList()
         {
-            ViewBag.Message = "Modify this template to jump-start your ASP.NET MVC application.";
-
             return View(service.GetAllUsers());
         }
 
+        [PermissionFilter, ValidateAntiForgeryToken]
         public ActionResult logout()
         {
             PermissionManager.logout();
-            //return Content("Logged out successfully");
+            TempData["Message"] = "You are logged out successfully.";
             return RedirectToAction("login");
         }
 

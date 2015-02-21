@@ -11,14 +11,6 @@ namespace DemoSecurityApp.Filters
     {
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            /*For Thumbnail generating action*/
-            //if (filterContext.ActionDescriptor.GetCustomAttributes(typeof(DontValidateAttribute),true).Any())
-            //{
-            //    // The controller action is decorated with the [DontValidate]
-            //    // custom attribute => don't do anything.
-            //    return;
-            //}
-
             base.OnActionExecuting(filterContext);
 
             HttpRequestBase request = filterContext.HttpContext.Request;
@@ -38,11 +30,6 @@ namespace DemoSecurityApp.Filters
 
                 string currentActionName = filterContext.ActionDescriptor.ActionName;
                 string currentControllerName = filterContext.ActionDescriptor.ControllerDescriptor.ControllerName;
-                int eventInstanceID;
-                if (int.TryParse(Convert.ToString(filterContext.RouteData.Values["id"]), out eventInstanceID))
-                {
-                    // It was assigned.
-                }
 
                 //get LoggedInUser Permissions
                 PermissionManager userPermissions = PermissionManager.getPermissions();
@@ -55,9 +42,6 @@ namespace DemoSecurityApp.Filters
 
                     if (PermissionManager.enablePermissioningSystem == true)
                     {
-                        //For getting accessible features per event for user  - Used by permission checker javascript
-                        filterContext.Controller.ViewBag.EventInstanceIDForPermission = eventInstanceID;
-
                         //Not all actions are feature in the application
                         bool isCurrentActionAFeature = Service.isFeaturePresentInList(userPermissions.allFeatures, currentControllerName, currentActionName);
 
@@ -81,7 +65,7 @@ namespace DemoSecurityApp.Filters
                 //Redirect to login Page
                 else
                 {
-                    filterContext.Controller.TempData["lgnFailedMessage"] = "Please login to continue.";
+                    filterContext.Controller.TempData["Message"] = "Please login to continue.";
                     filterContext.Result = new RedirectToRouteResult(
                                 new System.Web.Routing.RouteValueDictionary { { "controller", "home" }, { "action", "login" }, { "Area", "" } });
                 }
