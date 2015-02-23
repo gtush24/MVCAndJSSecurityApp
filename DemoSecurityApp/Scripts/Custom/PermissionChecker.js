@@ -18,6 +18,7 @@ $(document).ajaxComplete(function (event, request, settings) {
             }
             else {
                 //$(this).addClass("noDisplay");
+
                 //Remove element from DOM if not authorized to access it
                 $(this).remove();
             }
@@ -46,7 +47,16 @@ $(function () {
             $(allDataFeatureElements).each(function () {
                 var currentfid = $(this).data("feature");
                 var result = $.inArray(currentfid, allowedFeatureList);
+                var $ele = $(this);
+
                 if (result != -1) {
+                    //if ($ele.is('span')) {
+                    //$(this).removeClass("noDisplay").addClass("DisplayInline");
+                    //}
+                    //else
+                    //{
+                    //$(this).removeClass("noDisplay").addClass("Display");
+                    //}
                 }
                 else {
                     //$(this).addClass("noDisplay");
